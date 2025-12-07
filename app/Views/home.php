@@ -21,7 +21,7 @@
             </div>
         </div>
         <div class="hero-image">
-            <img src="https://images.unsplash.com/photo-1497436072909-60f360e1d4b0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Green Tech Architecture">
+            <img src="<?php echo BASE_URL; ?>/images/green-tech-hero.jpg" alt="Green Tech Architecture">
         </div>
     </div>
 </section>
