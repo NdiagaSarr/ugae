@@ -1,0 +1,50 @@
+UGAE Website Structure
+
+Root directory structure:
+/
+  index.html
+  about.html
+  services.html
+  team.html
+  partners.html
+  contact.html
+  /css
+    style.css
+  /images
+    logo-placeholder.png
+    banner-placeholder.jpg
+
+Main navigation menu (all pages):
+- Home / Accueil
+- About Us / À propos
+- Services / Nos services
+- Team / Équipe
+- Partners / Partenaires
+- Contact / Contact
+
+Order of display: Home, About, Services, Team, Partners, Contact
+
+All pages must offer both English and French versions in tabs or toggle (e.g. button top right: "EN | FR").
+
+Logo and banner can be replaced with simple placeholder images and alt text.
+
+The HTML of each file must use sectioned blocks for English and French, with only one shown at a time (CSS display:none for inactive lang). Navigation, company name, and headings must appear in both languages.
+
+Content for EN/FR is based on previous business plan and company deck. Example for index.html:
+
+<!-- index.html snippet -->
+<div class="lang-en">
+  <h1>Universal Green Accelerator Ecosystem (UGAE PTE. LTD.)</h1>
+  <p>Empowering Clean Tech Innovation in Africa and Asia-Pacific</p>
+</div>
+<div class="lang-fr" style="display:none;">
+  <h1>Ecosystème Universel des Accélérateurs Verts (UGAE PTE. LTD.)</h1>
+  <p>Favoriser l'innovation en technologie propre Afrique et Asie-Pacifique</p>
+</div>
+<button onclick="toggleLang('en')">EN</button>
+<button onclick="toggleLang('fr')">FR</button>
+<script>function toggleLang(lng) { document.querySelector('.lang-en').style.display = (lng==='en'?'block':'none'); document.querySelector('.lang-fr').style.display = (lng==='fr'?'block':'none'); }</script>
+
+All other pages must follow the same structure with their own content for EN and FR.
+
+Create all files and folders above, with HTML, CSS, placeholder image assets, for a site ZIP.

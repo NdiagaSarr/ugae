@@ -1,0 +1,87 @@
+<?php
+namespace App\Core;
+
+use PDO;
+use PDOException;
+
+class Database {
+    private $host = DB_HOST;
+    private $user = DB_USER;
+    private $pass = DB_PASS;
+    private $dbname = DB_NAME;
+
+    private $dbh;
+    private $stmt;
+    private $error;
+
+    public function __construct() {
+        // Set DSN
+        $dsn = 'mysql:host=' . $this->host . ';dbname=' . $this->dbname . ';charset=utf8mb4';
+        $options = array(
+            PDO::ATTR_PERSISTENT => true,
+            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
+        );
+
+        // Create PDO instance
+        try {
+            $this->dbh = new PDO($dsn, $this->user, $this->pass, $options);
+        } catch (PDOException $e) {
+            $this->error = $e->getMessage();
+            // Fallback for development if DB is not set up
+            // echo "Database Connection Error: " . $this->error;
+        }
+    }
+
+    // Prepare statement with query
+    public function query($sql) {
+        if ($this->dbh) {
+            $this->stmt = $this->dbh->prepare($sql);
+        }
+    }
+
+    // Bind values
+    public function bind($param, $value, $type = null) {
+        if (is_null($type)) {
+            switch (true) {
+                case is_int($value):
+                    $type = PDO::PARAM_INT;
+                    break;
+                case is_bool($value):
+                    $type = PDO::PARAM_BOOL;
+                    break;
+                case is_null($value):
+                    $type = PDO::PARAM_NULL;
+                    break;
+                default:
+                    $type = PDO::PARAM_STR;
+            }
+        }
+        if ($this->stmt) {
+            $this->stmt->bindValue($param, $value, $type);
+        }
+    }
+
+    // Execute the prepared statement
+    public function execute() {
+        if ($this->stmt) {
+            return $this->stmt->execute();
+        }
+        return false;
+    }
+
+    // Get result set as array of objects
+    public function resultSet() {
+        if ($this->execute()) {
+            return $this->stmt->fetchAll(PDO::FETCH_OBJ);
+        }
+        return [];
+    }
+
+    // Get single record as object
+    public function single() {
+        if ($this->execute()) {
+            return $this->stmt->fetch(PDO::FETCH_OBJ);
+        }
+        return false;
+    }
+}
