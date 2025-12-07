@@ -1,4 +1,4 @@
-# Redirection automatique vers le dossier public
+# Redirection automatique vers public/ (version Hostinger)
 <IfModule mod_rewrite.c>
     RewriteEngine On
     RewriteRule ^$ public/ [L]
